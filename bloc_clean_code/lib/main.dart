@@ -1,7 +1,10 @@
-import 'package:bloc_clean_code/bloc/counter_bloc.dart';
-import 'package:bloc_clean_code/bloc/switch_bloc.dart';
-import 'package:bloc_clean_code/ui/counter_screen.dart';
-import 'package:bloc_clean_code/ui/switch_screen.dart';
+import 'package:bloc_clean_code/bloc/ImagePicker/bloc/image_picker_bloc.dart';
+import 'package:bloc_clean_code/bloc/counter/counter_bloc.dart';
+import 'package:bloc_clean_code/bloc/switch/switch_bloc.dart';
+
+import 'package:bloc_clean_code/ui/image_picker/image_picker_screen.dart';
+import 'package:bloc_clean_code/utils/image_picker_utils.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -15,19 +18,23 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-        create: (context) => CounterBloc(),
-        child: BlocProvider(
-          create: (context) => SwitchBloc(),
-          child: MaterialApp(
-            title: 'Flutter Demo',
-            theme: ThemeData(
-              colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-              useMaterial3: true,
-            ),
-            debugShowCheckedModeBanner: false,
-            home: SwitchScreen(),
-          ),
-        ));
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => CounterBloc()),
+        BlocProvider(create: (_) => SwitchBloc()),
+        BlocProvider(
+          create: (context) => ImagePickerBloc(ImagePickerUtils()),
+        )
+      ],
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+        debugShowCheckedModeBanner: false,
+        home: ImagePickerScreen(),
+      ),
+    );
   }
 }

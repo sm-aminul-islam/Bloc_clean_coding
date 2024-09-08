@@ -47,6 +47,7 @@ dependencies:
   equatable: ^2.0.5
   flutter_secure_storage: ^9.2.2
   google_fonts:
+  image_picker:
 
 dev_dependencies:
   flutter_test:

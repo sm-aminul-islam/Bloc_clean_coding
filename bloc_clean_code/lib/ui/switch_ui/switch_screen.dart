@@ -1,6 +1,7 @@
-import 'package:bloc_clean_code/bloc/switch_bloc.dart';
-import 'package:bloc_clean_code/bloc/switch_event.dart';
-import 'package:bloc_clean_code/bloc/switch_state.dart';
+import 'package:bloc_clean_code/bloc/switch/switch_bloc.dart';
+import 'package:bloc_clean_code/bloc/switch/switch_event.dart';
+import 'package:bloc_clean_code/bloc/switch/switch_state.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -27,13 +28,17 @@ class SwitchScreen extends StatelessWidget {
                   "Notifications",
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
-                BlocBuilder<SwitchBloc, SwitchState>(builder: (context, state) {
-                  return Switch(
-                      value: state.isSwitch,
-                      onChanged: (newValue) {
-                        context.read<SwitchBloc>().add(EnableAndDisable());
-                      });
-                })
+                BlocBuilder<SwitchBloc, SwitchState>(
+                    buildWhen: (previous, current) =>
+                        previous.isSwitch != current.isSwitch,
+                    builder: (context, state) {
+                      print('switch');
+                      return Switch(
+                          value: state.isSwitch,
+                          onChanged: (newValue) {
+                            context.read<SwitchBloc>().add(EnableAndDisable());
+                          });
+                    })
               ],
             ),
             const SizedBox(
@@ -49,6 +54,7 @@ class SwitchScreen extends StatelessWidget {
               height: 50,
             ),
             BlocBuilder<SwitchBloc, SwitchState>(builder: (context, state) {
+              print("slider");
               return Slider(
                   value: state.slider,
                   onChanged: (value) {
