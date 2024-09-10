@@ -25,10 +25,10 @@ class _ImagePickerScreenState extends State<ImagePickerScreen> {
           if (state.file == null) {
             return InkWell(
               onTap: () {
-                context.read<ImagePickerBloc>().add(CameraCapture());
+                context.read<ImagePickerBloc>().add(GalleryPicture());
               },
               child: CircleAvatar(
-                child: Icon(Icons.camera),
+                child: Icon(Icons.browse_gallery),
               ),
             );
           } else {
