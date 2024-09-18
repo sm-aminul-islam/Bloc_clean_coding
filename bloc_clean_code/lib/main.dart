@@ -1,9 +1,10 @@
 import 'package:bloc_clean_code/bloc/ImagePicker/bloc/image_picker_bloc.dart';
 import 'package:bloc_clean_code/bloc/counter/counter_bloc.dart';
+import 'package:bloc_clean_code/bloc/favourite/favourite_app_bloc.dart';
 import 'package:bloc_clean_code/bloc/switch/switch_bloc.dart';
+import 'package:bloc_clean_code/repository/favourite_repositroy.dart';
 import 'package:bloc_clean_code/todo/bloc/todo_bloc.dart';
-
-import 'package:bloc_clean_code/ui/image_picker/image_picker_screen.dart';
+import 'package:bloc_clean_code/ui/favourite_app/favourite_screen.dart';
 import 'package:bloc_clean_code/ui/todo_ui/todo_screen.dart';
 import 'package:bloc_clean_code/utils/image_picker_utils.dart';
 
@@ -29,16 +30,19 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => TodoBloc(),
+        ),
+        BlocProvider(
+          create: (context) => FavouriteAppBloc(FavouriteRepositroy()),
         )
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          brightness: Brightness.dark,
           useMaterial3: true,
         ),
         debugShowCheckedModeBanner: false,
-        home: TodoScreen(),
+        home: FavouriteScreen(),
       ),
     );
   }
